@@ -18,7 +18,7 @@ h1 {
   }
   
   
-  .isiqinisekiso {
+  .confirmation {
     grid-row: 2 / span 1;
     grid-column: span 3;
     font-weight: bold;
@@ -124,7 +124,7 @@ h1 {
       justify-self: center;
     }
   
-    .isiqinisekiso {
+    .confirmation {
       grid-column: 1 / span 2;
       grid-row: 2 / span 1;
       font-weight: 500px;

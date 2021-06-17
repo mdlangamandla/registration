@@ -7,37 +7,20 @@ let townsWidgA = {
   CY: "Bellville",
   CA: "Cape Town",
   CF: "Kuilsriver",
-
 };
 
-const filter = regNumFilter(regListWidgA, townsWidgA);
-const addBtn = document.querySelector(".add_btn");
-const regDisplayList = document.querySelector(".reg_display_list");
-const townOptions = document.querySelector(".town");
-const resetBtn = document.querySelector(".reset_btn");
-const clearBtn = document.querySelector(".clear_filter_btn");
+var filter = regNumFilter(regListWidgA, townsWidgA);
+var addBtn = document.querySelector(".add_btn");
+var regDisplayList = document.querySelector(".reg_display_list");
+var townOptions = document.querySelector(".town");
+var resetBtn = document.querySelector(".reset_btn");
+var clearBtn = document.querySelector(".clear_filter_btn");
 
 function displayNum(regNum) {
   var plate = document.createElement("LI");
   plate.innerHTML = regNum;
   regDisplayList.insertBefore(plate, regDisplayList.firstChild);
 }
-
-resetBtn.addEventListener("click", function () {
-  while (regDisplayList.firstChild) {
-    regDisplayList.removeChild(regDisplayList.firstChild);
-  }
-  localStorage.removeItem("regNumbers");
-  regListWidgA = [];
-  filter = regNumFilter(regListWidgA, townsWidgA);
-});
-clearBtn.addEventListener("click", function () {
-  while (regDisplayList.firstChild) {
-    regDisplayList.removeChild(regDisplayList.firstChild);
-  }
-  document.querySelector(".town").selectedIndex = 0;
-  filter.getRegList().forEach(displayNum);
-});
 
 filter.getRegList().forEach(displayNum)
 
@@ -55,41 +38,41 @@ addBtn.addEventListener("click", function () {
     }, 1500);
     return;
   }
-//Timeout//
+  
+
   regEnteredList = filter.inputToList(regEntered);
   regEnteredList.forEach(function (num, i) {
     setTimeout(function () {
       if (filter.validityTest(num)) {
         filter.addToList(num);
         displayNum(num);
-        document.querySelector(".isiqinisekiso").classList.add("valid");
-        document.querySelector(".isiqinisekiso").innerHTML = num + " was sucessfully captured into the registated Registration Numbers.";
+        document.querySelector(".confirmation").classList.add("valid");
+        document.querySelector(".confirmation").innerHTML = num + " was sucessfully captured.";
       } 
    
       
       else {
-        document.querySelector(".isiqinisekiso").classList.add("invalid");
-        document.querySelector(".isiqinisekiso").innerHTML = num + " Is an invalid registration number. Or the registration number is not captured/ is already captured.";
+        document.querySelector(".confirmation").classList.add("invalid");
+        document.querySelector(".confirmation").innerHTML = num + " Is an invalid registration number. Or the registration number is not captured/ is already captured.";
       }
-    }, 1000 * i);
+    }, 2000 * i);
   });
 
   setTimeout(function () {
     localStorage.setItem("regNumbers", filter.getRegList().toString());
 
-    if (document.querySelector(".isiqinisekiso").classList.contains("invalid")) {
-      document.querySelector(".isiqinisekiso").classList.remove("invalid");
-      document.querySelector(".isiqinisekiso").innerHTML = "Please enter a valid registration number.";
+    if (document.querySelector(".confirmation").classList.contains("invalid")) {
+      document.querySelector(".confirmation").classList.remove("invalid");
+      document.querySelector(".confirmation").innerHTML = "Please enter a valid registration number.";
     }
-    if (document.querySelector(".isiqinisekiso").classList.contains("valid")) {
-      document.querySelector(".isiqinisekiso").classList.remove("valid");
+    if (document.querySelector(".confirmation").classList.contains("valid")) {
+      document.querySelector(".confirmation").classList.remove("valid");
     }
-    document.querySelector(".isiqinisekiso").innerHTML = "Enter a valid registration number.";
-  }, 4000 * regEnteredList.length);
+    document.querySelector(".confirmation").innerHTML = "Enter a registration number in the text-box below.";
+  }, 2000 * regEnteredList.length);
   document.querySelector(".reg_input").value = "";
-
+  
 });
-//Timeout ends//
 
 townOptions.onchange = function () {
   while (regDisplayList.firstChild) {
@@ -98,5 +81,22 @@ townOptions.onchange = function () {
   var townSelected = document.querySelector(".town").selectedIndex;
   var townList = filter.carsForTown(townOptions.options[townSelected].value);
   townList.forEach(displayNum);
+
+  // document.querySelector(".town").innerHTML = ""
 };
 
+resetBtn.addEventListener("click", function () {
+  while (regDisplayList.firstChild) {
+    regDisplayList.removeChild(regDisplayList.firstChild);
+  }
+  localStorage.removeItem("regNumbers");
+  regListWidgA = [];
+  filter = regNumFilter(regListWidgA, townsWidgA);
+});
+clearBtn.addEventListener("click", function () {
+  while (regDisplayList.firstChild) {
+    regDisplayList.removeChild(regDisplayList.firstChild);
+  }
+  document.querySelector(".town").selectedIndex = 0;
+  filter.getRegList().forEach(displayNum);
+});
