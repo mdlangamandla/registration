@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="registration_number.css">
+    <title>Registration Number</title>
+</head>
+<body>
+        <div class="container">
+          <h1>Western Cape Registration Numbers</h1>
+          <input type="text" class="reg_input" placeholder="eg. CAA 920 408" />
+          <span class="isiqinisekiso">Please enter a registration number in the text-box below.</span>
+          <input class="add_btn" type="button" value="Add" />
+          <input class="reset_btn" type="button" value="Reset" />
+          <input class="clear_filter_btn" type="button" value="Clear filter" />
+          <div class="filter">
+            Filter by town:
+            <select class="town">
+              <option value="">Select Town</option>
+              <option value="CY">BELLVILLE</option>
+              <option value="CAA">CAPE TOWN</option>
+              <option value="CF">KUILSRIVER</option>
+            </select>
+          </div>
+          <ul class="reg_display_list"></ul>
+        </div>
+        <script src="registration_number.js"></script>
+        <script src="registration_num_dom.js"></script>
+</body>
+</html>
